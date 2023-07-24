@@ -32,6 +32,17 @@ app.get('/',(req, res)=> {
     res.sendFile(indexAbsolutePath)
 })
 
+app.get('/api',(req, res)=> {
+    let currentDate = new Date()
+    let unix = currentDate.getTime()
+    let utc = currentDate.toUTCString()
+    let responseObject = {
+        unix: unix,
+        utc: utc
+    }
+    res.json(responseObject)
+})
+
 app.get('/api/:input',(req, res)=> {
     const input = req.params.input
     console.log(input)
@@ -78,7 +89,6 @@ app.get('/api/:input',(req, res)=> {
         if (!isNaN(date)) {
             let unix = date.getTime();
             let utc = date.toUTCString();
-            
             let responseObject = {
                 unix: unix,
                 utc: utc
