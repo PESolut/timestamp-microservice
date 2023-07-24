@@ -35,10 +35,11 @@ app.get('/api/:input',(req, res)=> {
 
     // case that our input is in date format
     if(input.match(/\d{4}-\d{2}-\d{2}/)){
-        let date = new Date(parseInt(input))
+        let date = new Date(input)
         let unix = date.getTime()
         let utc = date.toUTCString()
         
+        console.log(date)
         let responseObject = {
             unix: unix,
             utc: utc
