@@ -1,6 +1,8 @@
 // DEPENDACIES
 const bodyParser = require('body-parser')
 const express = require('express')
+var cors = require('cors');
+
 
 // CONFIGURATION
 const app = express()
@@ -8,6 +10,7 @@ let indexAbsolutePath = __dirname + '/views/index.html'
 let assetsAbsolutePath = __dirname + '/public'
 
 // MIDDLEWARE
+app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 app.use(express.json())
 app.use("/public", express.static(assetsAbsolutePath));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +42,9 @@ app.get('/api/:input',(req, res)=> {
         let unix = date.getTime()
         let utc = date.toUTCString()
         
+        console.log(unix)
+        console.log(utc)
+
         console.log(date)
         let responseObject = {
             unix: unix,
