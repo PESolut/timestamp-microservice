@@ -62,6 +62,30 @@ app.get('/api/:input',(req, res)=> {
             utc: utc
         }
         res.json(responseObject)
+    } else {
+        // check if the input is a valid date string
+        let decodedInput = decodeURIComponent(input); // Decode URL-encoded characters
+        let date = new Date(Date.parse(decodedInput));
+        if (!isNaN(date)) {
+            let unix = date.getTime();
+            let utc = date.toUTCString();
+            
+            let responseObject = {
+                unix: unix,
+                utc: utc
+            };
+            res.json(responseObject);
+        } else {
+            const currentDate = new Date().toString()
+            let unix = currentDate.getTime()
+            let utc = currentDate.toUTCString()
+
+            res.json({
+                unix: unix,
+                utc: utc,
+            })
+        }
+
     }
     
 })
